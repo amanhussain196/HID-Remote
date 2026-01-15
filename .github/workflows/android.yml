@@ -19,17 +19,12 @@ jobs:
       with:
         java-version: '17'
         distribution: 'temurin'
-        cache: gradle
 
     - name: Setup Android SDK
       uses: android-actions/setup-android@v3
 
-    - name: Grant execute permission for gradlew
-      run: chmod +x gradlew
-      continue-on-error: true 
-      # If gradlew doesn't exist (because I can't generate the binary jar), we use gradle directly
-
     - name: Build with Gradle
+      # We use the global 'gradle' command because we don't have the wrapper files (gradlew)
       run: gradle assembleDebug --no-daemon
 
     - name: Upload APK

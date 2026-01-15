@@ -2,9 +2,9 @@ package com.example.hidremote
 
 object HidUtils {
 
-    const val ID_KEYBOARD: Byte = 1
-    const val ID_MOUSE: Byte = 2
-    const val ID_CONSUMER: Byte = 3 // For DPAD/Media
+    const val ID_KEYBOARD: Int = 1
+    const val ID_MOUSE: Int = 2
+    const val ID_CONSUMER: Int = 3 // For DPAD/Media
 
     // Standard HID Keyboard Report Descriptor
     val KEYBOARD_REPORT_DESCRIPTOR = byteArrayOf(

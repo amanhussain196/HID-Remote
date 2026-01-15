@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/black"
+    android:keepScreenOn="true">
+
+    <TextView
+        android:id="@+id/tvStatus"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Status: Disconnected"
+        android:textColor="@color/white"
+        android:padding="16dp"
+        android:background="#222"
+        android:textAlignment="center"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="3">
+        
+        <Button
+            android:id="@+id/btnModeMouse"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Mouse"/>
+        <Button
+            android:id="@+id/btnModeKeyboard"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Keyboard"/>
+         <Button
+            android:id="@+id/btnModeDpad"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Remote"/>
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <!-- Mouse Layout -->
+        <LinearLayout
+            android:id="@+id/layoutMouse"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:visibility="visible">
+            
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Trackpad Area"
+                android:textColor="#888"
+                android:gravity="center"
+                android:padding="5dp"/>
+
+            <com.example.hidremote.TouchpadView
+                android:id="@+id/touchpad"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#111"/>
+        </LinearLayout>
+        
+        <!-- Keyboard Layout -->
+        <LinearLayout
+            android:id="@+id/layoutKeyboard"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:visibility="gone"
+            android:padding="16dp">
+            
+            <EditText
+                android:id="@+id/etInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Type here to send..."
+                android:textColor="@color/white"
+                android:textColorHint="#888"/>
+            
+            <Button
+                android:id="@+id/btnEnter"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="SEND ENTER"
+                android:layout_marginTop="20dp"/>
+                 
+            <Button
+                android:id="@+id/btnBackspace"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="BACKSPACE"
+                android:layout_marginTop="10dp"/>
+        </LinearLayout>
+
+        <!-- DPAD Layout -->
+        <GridLayout
+            android:id="@+id/layoutDpad"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            android:rowCount="4"
+            android:columnCount="3"
+            android:alignmentMode="alignMargins"
+            android:padding="20dp"
+            android:layout_gravity="center">
+
+            <!-- Row 0 -->
+            <Space android:layout_width="0dp" android:layout_height="wrap_content" android:layout_columnWeight="1"/>
+            <Button android:id="@+id/btnUp" android:text="UP" android:layout_width="0dp" android:layout_height="80dp" android:layout_columnWeight="1"/>
+            <Space android:layout_width="0dp" android:layout_height="wrap_content" android:layout_columnWeight="1"/>
+
+            <!-- Row 1 -->
+            <Button android:id="@+id/btnLeft" android:text="LEFT" android:layout_width="0dp" android:layout_height="80dp" android:layout_columnWeight="1"/>
+            <Button android:id="@+id/btnOk" android:text="OK" android:layout_width="0dp" android:layout_height="80dp" android:layout_columnWeight="1"/>
+            <Button android:id="@+id/btnRight" android:text="RIGHT" android:layout_width="0dp" android:layout_height="80dp" android:layout_columnWeight="1"/>
+            
+            <!-- Row 2 -->
+             <Space android:layout_width="0dp" android:layout_height="wrap_content" android:layout_columnWeight="1"/>
+            <Button android:id="@+id/btnDown" android:text="DOWN" android:layout_width="0dp" android:layout_height="80dp" android:layout_columnWeight="1"/>
+             <Space android:layout_width="0dp" android:layout_height="wrap_content" android:layout_columnWeight="1"/>
+
+             <!-- Row 3 Control -->
+             <Button android:id="@+id/btnBack" android:text="BACK" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginTop="30dp" android:layout_columnWeight="1"/>
+             <Space android:layout_width="0dp" android:layout_height="wrap_content" android:layout_columnWeight="1"/>
+             <Button android:id="@+id/btnHome" android:text="HOME" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginTop="30dp" android:layout_columnWeight="1"/>
+
+        </GridLayout>
+
+    </FrameLayout>
+    
+    <Button
+        android:id="@+id/btnPair"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Open Bluetooth Settings to Pair"/>
+
+</LinearLayout>

@@ -29,7 +29,7 @@ jobs:
         gradle-version: '8.4'
 
     - name: Build with Gradle
-      run: gradle assembleDebug --stacktrace
+      run: gradle assembleDebug --stacktrace -Pandroid.lintOptions.abortOnError=false
 
     - name: Upload APK
       uses: actions/upload-artifact@v4

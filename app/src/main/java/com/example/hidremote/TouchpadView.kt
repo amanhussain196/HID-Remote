@@ -37,7 +37,6 @@ class TouchpadView @JvmOverloads constructor(
              listener?.onRightClick()
         }
         
-        // Two finger tap not directly supported by SimpleOnGestureListener, doing manual or using double tap
         override fun onDoubleTap(e: MotionEvent): Boolean {
             return true
         }
@@ -49,7 +48,6 @@ class TouchpadView @JvmOverloads constructor(
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
         canvas.drawRect(0f, 0f, width.toFloat(), height.toFloat(), paint)
-        // Could draw a grid or something cool
     }
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
@@ -71,6 +69,12 @@ class TouchpadView @JvmOverloads constructor(
                 }
             }
         }
+        return true
+    }
+    
+    // Explicitly add performClick to satisfy Lint/Accessibility requirements overriding onTouchEvent
+    override fun performClick(): Boolean {
+        super.performClick()
         return true
     }
 }

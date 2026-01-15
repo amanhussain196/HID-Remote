@@ -119,12 +119,12 @@ class HidLink(private val context: Context) {
         if (dY > 127) dY = 127
         if (dY < -127) dY = -127
 
-        var buttons: Byte = 0
-        if (leftBtn) buttons = (buttons.toInt() or 1).toByte()
-        if (rightBtn) buttons = (buttons.toInt() or 2).toByte()
+        var buttons: Int = 0
+        if (leftBtn) buttons = buttons or 1
+        if (rightBtn) buttons = buttons or 2
 
         val report = ByteArray(4)
-        report[0] = buttons
+        report[0] = buttons.toByte()
         report[1] = dX.toByte()
         report[2] = dY.toByte()
         
@@ -150,8 +150,9 @@ class HidLink(private val context: Context) {
         // 2 bytes for usage value if pressed, 0 if released
         val report = ByteArray(2)
         if (pressed) {
-            report[0] = (usage.toInt() and 0xFF).toByte()
-            report[1] = ((usage.toInt() shr 8) and 0xFF).toByte()
+            val uInt = usage.toInt()
+            report[0] = (uInt and 0xFF).toByte()
+            report[1] = ((uInt shr 8) and 0xFF).toByte()
         } else {
             report[0] = 0
             report[1] = 0

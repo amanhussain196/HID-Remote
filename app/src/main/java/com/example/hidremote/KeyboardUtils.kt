@@ -19,13 +19,13 @@ object KeyboardUtils {
         for (c in '1'..'9') {
             charMap[c] = HidKey(0, (c.code - '1'.code + 0x1E).toByte())
         }
-        charMap['0'] = HidKey(0, 0x27)
+        charMap['0'] = HidKey(0, 0x27.toByte())
         
-        charMap[' '] = HidKey(0, 0x2C)
-        charMap['\n'] = HidKey(0, 0x28) // Enter
-        charMap['\b'] = HidKey(0, 0x2A) // Backspace
-        charMap['.'] = HidKey(0, 0x37)
-        charMap[','] = HidKey(0, 0x36)
+        charMap[' '] = HidKey(0, 0x2C.toByte())
+        charMap['\n'] = HidKey(0, 0x28.toByte()) // Enter
+        charMap['\b'] = HidKey(0, 0x2A.toByte()) // Backspace
+        charMap['.'] = HidKey(0, 0x37.toByte())
+        charMap[','] = HidKey(0, 0x36.toByte())
     }
 
     fun getHidKey(c: Char): HidKey? {

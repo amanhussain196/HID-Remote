@@ -37,7 +37,11 @@ class HidLink(private val context: Context) {
                 } catch (e: Exception) {
                     Log.e("HidLink", "Error unregistering", e)
                 }
-                registerApp()
+                
+                // Add a small delay to ensure unregistration finishes
+                android.os.Handler(android.os.Looper.getMainLooper()).postDelayed({
+                    registerApp()
+                }, 500)
             }
         }
 

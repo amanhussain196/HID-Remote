@@ -32,6 +32,11 @@ class HidLink(private val context: Context) {
         override fun onServiceConnected(profile: Int, proxy: BluetoothProfile) {
             if (profile == BluetoothProfile.HID_DEVICE) {
                 bluetoothHidDevice = proxy as BluetoothHidDevice
+                try {
+                    bluetoothHidDevice?.unregisterApp()
+                } catch (e: Exception) {
+                    Log.e("HidLink", "Error unregistering", e)
+                }
                 registerApp()
             }
         }
@@ -89,12 +94,21 @@ class HidLink(private val context: Context) {
             )
         )
 
-        val qos = BluetoothHidDeviceAppQosSettings(
-            BluetoothHidDeviceAppQosSettings.SERVICE_BEST_EFFORT,
-            800, 9, 0, 11250, -1
-        )
+        val host = bluetoothHidDevice
+        if (host != null) {
+            // Use Main Looper for callbacks to ensure safety
+            val executor = Executor { command ->
+                android.os.Handler(android.os.Looper.getMainLooper()).post(command)
+            }
 
-        bluetoothHidDevice?.registerApp(sdp, null, qos, Executor { it.run() }, callback)
+            // QoS can be null. Explicit QoS might be rejected by some stacks if invalid.
+            val result = host.registerApp(sdp, null, null, executor, callback)
+            Log.d("HidLink", "registerApp initiated, result: $result")
+            
+            if (!result) {
+                listener?.onStateChanged("Registration Initiation Failed")
+            }
+        }
     }
 
     private fun concatDescriptors(vararg arrays: ByteArray): ByteArray {

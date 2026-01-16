@@ -141,7 +141,7 @@ class HidLink(private val context: Context) {
         if (leftBtn) buttons = buttons or 1
         if (rightBtn) buttons = buttons or 2
 
-        val report = ByteArray(4)
+        val report = ByteArray(3)
         report[0] = buttons.toByte()
         report[1] = dX.toByte()
         report[2] = dY.toByte()

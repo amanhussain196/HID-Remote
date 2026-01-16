@@ -4,9 +4,9 @@ object HidUtils {
 
     const val ID_KEYBOARD: Int = 1
     const val ID_MOUSE: Int = 2
-    const val ID_CONSUMER: Int = 3 // For DPAD/Media
+    const val ID_CONSUMER: Int = 3
 
-    // Standard HID Keyboard Report Descriptor
+    // Robust Keyboard Report Descriptor (Standard Boot Keyboard)
     val KEYBOARD_REPORT_DESCRIPTOR = byteArrayOf(
         0x05.toByte(), 0x01.toByte(),       // Usage Page (Generic Desktop)
         0x09.toByte(), 0x06.toByte(),       // Usage (Keyboard)
@@ -19,20 +19,20 @@ object HidUtils {
         0x25.toByte(), 0x01.toByte(),       //   Logical Maximum (1)
         0x75.toByte(), 0x01.toByte(),       //   Report Size (1)
         0x95.toByte(), 0x08.toByte(),       //   Report Count (8)
-        0x81.toByte(), 0x02.toByte(),       //   Input (Data, Variable, Absolute) - Modifier byte
+        0x81.toByte(), 0x02.toByte(),       //   Input (Data, Variable, Absolute) - Modifiers
         0x95.toByte(), 0x01.toByte(),       //   Report Count (1)
         0x75.toByte(), 0x08.toByte(),       //   Report Size (8)
-        0x81.toByte(), 0x01.toByte(),       //   Input (Constant) - Reserved byte
-        0x95.toByte(), 0x05.toByte(),       //   Report Count (5) - LED bits
+        0x81.toByte(), 0x01.toByte(),       //   Input (Constant) - Reserved
+        0x95.toByte(), 0x05.toByte(),       //   Report Count (5) - LEDs
         0x75.toByte(), 0x01.toByte(),       //   Report Size (1)
         0x05.toByte(), 0x08.toByte(),       //   Usage Page (LEDs)
-        0x19.toByte(), 0x01.toByte(),       //   Usage Minimum (1)
-        0x29.toByte(), 0x05.toByte(),       //   Usage Maximum (5)
+        0x19.toByte(), 0x01.toByte(),       //   Usage Minimum (Num Lock)
+        0x29.toByte(), 0x05.toByte(),       //   Usage Maximum (Kana)
         0x91.toByte(), 0x02.toByte(),       //   Output (Data, Variable, Absolute)
         0x95.toByte(), 0x01.toByte(),       //   Report Count (1)
         0x75.toByte(), 0x03.toByte(),       //   Report Size (3)
-        0x91.toByte(), 0x01.toByte(),       //   Output (Constant) - Panic padding
-        0x95.toByte(), 0x06.toByte(),       //   Report Count (6) - Key arrays
+        0x91.toByte(), 0x01.toByte(),       //   Output (Constant) - Padding
+        0x95.toByte(), 0x06.toByte(),       //   Report Count (6) - Keys
         0x75.toByte(), 0x08.toByte(),       //   Report Size (8)
         0x15.toByte(), 0x00.toByte(),       //   Logical Minimum (0)
         0x25.toByte(), 0x65.toByte(),       //   Logical Maximum (101)
@@ -43,7 +43,7 @@ object HidUtils {
         0xC0.toByte()                       // End Collection
     )
 
-    // Standard HID Mouse Report Descriptor
+    // Robust Mouse Report Descriptor (3 Buttons, Relative X/Y)
     val MOUSE_REPORT_DESCRIPTOR = byteArrayOf(
         0x05.toByte(), 0x01.toByte(),       // Usage Page (Generic Desktop)
         0x09.toByte(), 0x02.toByte(),       // Usage (Mouse)
@@ -58,10 +58,10 @@ object HidUtils {
         0x25.toByte(), 0x01.toByte(),       //     Logical Maximum (1)
         0x95.toByte(), 0x03.toByte(),       //     Report Count (3)
         0x75.toByte(), 0x01.toByte(),       //     Report Size (1)
-        0x81.toByte(), 0x02.toByte(),       //     Input (Data, Variable, Absolute)
+        0x81.toByte(), 0x02.toByte(),       //     Input (Data, Var, Abs)
         0x95.toByte(), 0x01.toByte(),       //     Report Count (1)
         0x75.toByte(), 0x05.toByte(),       //     Report Size (5)
-        0x81.toByte(), 0x01.toByte(),       //     Input (Constant) - Padding
+        0x81.toByte(), 0x03.toByte(),       //     Input (Const, Var, Abs) - Padding
         0x05.toByte(), 0x01.toByte(),       //     Usage Page (Generic Desktop)
         0x09.toByte(), 0x30.toByte(),       //     Usage (X)
         0x09.toByte(), 0x31.toByte(),       //     Usage (Y)
@@ -69,12 +69,12 @@ object HidUtils {
         0x25.toByte(), 0x7F.toByte(),       //     Logical Maximum (127)
         0x75.toByte(), 0x08.toByte(),       //     Report Size (8)
         0x95.toByte(), 0x02.toByte(),       //     Report Count (2)
-        0x81.toByte(), 0x06.toByte(),       //     Input (Data, Variable, Relative)
+        0x81.toByte(), 0x06.toByte(),       //     Input (Data, Var, Rel)
         0xC0.toByte(),                      //   End Collection
         0xC0.toByte()                       // End Collection
     )
     
-    // DPAD/Consumer Control Report Descriptor (for Android TV navigation)
+    // Robust Consumer Control Descriptor
     val CONSUMER_REPORT_DESCRIPTOR = byteArrayOf(
         0x05.toByte(), 0x0C.toByte(),       // Usage Page (Consumer)
         0x09.toByte(), 0x01.toByte(),       // Usage (Consumer Control)
@@ -89,13 +89,13 @@ object HidUtils {
         0x81.toByte(), 0x00.toByte(),       //   Input (Data, Array)
         0xC0.toByte()                       // End Collection
     )
-    
+
     // Consumer Usage IDs
     const val USAGE_DPAD_UP: Short = 0x0042
     const val USAGE_DPAD_DOWN: Short = 0x0043
     const val USAGE_DPAD_LEFT: Short = 0x0044
     const val USAGE_DPAD_RIGHT: Short = 0x0045
-    const val USAGE_DPAD_CENTER: Short = 0x0041 // Menu Pick
-    const val USAGE_HOME: Short = 0x0223        // AC Home
-    const val USAGE_BACK: Short = 0x0224        // AC Back
+    const val USAGE_DPAD_CENTER: Short = 0x0041
+    const val USAGE_HOME: Short = 0x0223
+    const val USAGE_BACK: Short = 0x0224
 }
